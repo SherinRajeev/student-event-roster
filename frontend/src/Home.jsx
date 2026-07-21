@@ -43,7 +43,7 @@ const Home = () => {
             CEK <span className="text-gray-500">Event Roster</span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-gray-600 mb-8 leading-relaxed">
-            Welcome to your student branch event dashboard. Manage upcoming events, check schedules, and track expected attendance.
+            Welcome to your student branch event dashboard. Manage upcoming eventsgit, check schedules, and track expected attendance.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link

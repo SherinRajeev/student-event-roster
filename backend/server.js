@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 const Event = require('./models/Event');
 const cors = require('cors');
 
+// Allow your Vercel domain specifically
+app.use(cors({
+    origin: 'https://your-frontend-domain.vercel.app' 
+}));
+
 const app = express();
 app.use(cors());
 app.use(express.json());
