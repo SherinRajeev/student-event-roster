@@ -40,10 +40,10 @@ const Home = () => {
       <div className="relative overflow-hidden py-16 sm:py-24 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-gray-900 mb-6">
-            IEEE <span className="text-gray-500">Event Roster</span>
+            CEK <span className="text-gray-500">Event Roster</span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-gray-600 mb-8 leading-relaxed">
-            Welcome to your student branch event dashboard. Manage upcoming bootcamps, check schedules, and track expected attendance.
+            Welcome to your student branch event dashboard. Manage upcoming events, check schedules, and track expected attendance.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
