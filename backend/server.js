@@ -1,81 +1,36 @@
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
-const Event = require('./models/Event');
+const cors = require('cors');
+require('dotenv').config(); // If you are using a .env file
 
-// Allow your Vercel domain specifically
-app.use(cors({
-    origin: 'https://your-frontend-domain.vercel.app' 
-}));
-
+// 1. Initialize app FIRST
 const app = express();
-app.use(cors({
-    origin: 'https://your-frontend-domain.vercel.app' // Make sure this is your actual Vercel URL
-}));
+
+// 2. Apply Middleware SECOND
+app.use(cors()); 
 app.use(express.json());
-require("dotenv").config();
-console.log("My Mongo URL is:", process.env.MONGODBURL); // Add this line to test
 
-const port = 5000;
+// 3. Define Routes
+// (Make sure this matches the path where you saved your Event routes)
+// const eventRoutes = require('./routes/events'); 
+// app.use('/api/events', eventRoutes);
 
-// GET all events
-app.get('/api/events', async (req, res) => {
-  try {
-    const events = await Event.find().sort({ date: 1 });
-    res.status(200).json({ success: true, message: "Events returned", data: events });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, error: error.message });
-  }
+app.get('/', (req, res) => {
+    res.send('API is running...');
 });
 
-// POST a new event
-app.post('/api/events', async (req, res) => {
-  try {
-    if (!req.body || Object.keys(req.body).length === 0) {
-      return res.status(400).json({ success: false, error: "Event details cannot be empty" });
-    }
-    
-    if (!req.body.title) {
-      return res.status(400).json({ success: false, error: "Event title is required" });
-    }
+// 4. Database Connection & Server Start
+// Make sure your MONGO_URI is in your .env file in the backend folder
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI; 
 
-    const event = new Event(req.body);
-    await event.save();
-    res.status(201).json({ success: true, message: "Event added", data: event });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
-
-// DELETE an event
-app.delete('/api/events/:id', async (req, res) => {
-  try {
-    const eventId = req.params.id;
-    if (!eventId) {
-      return res.status(400).json({ success: false, error: "Event ID is required" });
-    }
-
-    const event = await Event.findByIdAndDelete(eventId);
-    if (!event) {
-      return res.status(404).json({ success: false, error: "Event not found" });
-    }
-    res.status(200).json({ success: true, message: "Event deleted" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
-
-async function main() {
-  await mongoose.connect(process.env.MONGODBURL);
-}
-
-main()
-  .then(() => console.log("DB connected.."))
-  .catch((err) => console.log(err));
-
-app.listen(port, () => {
-  console.log(`Events server listening on port ${port}`);
-});
+mongoose.connect(MONGO_URI)
+    .then(() => {
+        console.log(`My Mongo URL is: ${MONGO_URI}`);
+        app.listen(PORT, () => {
+            console.log(`Events server listening on port ${PORT}`);
+        });
+    })
+    .catch((error) => {
+        console.error('MongoDB connection error:', error);
+    });
