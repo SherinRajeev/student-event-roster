@@ -3,7 +3,7 @@ import axios from "axios";
 import EventCard from "./EventCard";
 
 const Events = () => {
-  const apiUrl = "/api/events";
+  const apiUrl = "https://student-event-roster.onrender.com";
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

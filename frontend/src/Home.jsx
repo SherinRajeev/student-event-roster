@@ -12,7 +12,7 @@ const Home = () => {
   const fetchStats = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/events");
+      const res = await fetch("https://student-event-roster.onrender.com");
       const result = await res.json();
       
       if (result.success) {

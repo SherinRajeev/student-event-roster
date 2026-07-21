@@ -34,7 +34,7 @@ const AddEvent = () => {
 
     try {
       setLoading(true);
-      const res = await fetch("/api/events", {
+      const res = await fetch("https://student-event-roster.onrender.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
