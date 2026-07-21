@@ -1,7 +1,7 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const Event = require('./models/Event');
-const cors = require('cors');
 
 // Allow your Vercel domain specifically
 app.use(cors({
@@ -9,7 +9,9 @@ app.use(cors({
 }));
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://your-frontend-domain.vercel.app' // Make sure this is your actual Vercel URL
+}));
 app.use(express.json());
 require("dotenv").config();
 console.log("My Mongo URL is:", process.env.MONGODBURL); // Add this line to test
